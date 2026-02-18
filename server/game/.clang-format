@@ -3,6 +3,6 @@ IndentWidth: 4
 TabWidth: 4
 UseTab: Never
 ColumnLimit: 95
-AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortIfStatementsOnASingleLine: true
 IndentCaseLabels: true
 AllowShortLoopsOnASingleLine: true

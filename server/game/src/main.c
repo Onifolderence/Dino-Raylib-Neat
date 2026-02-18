@@ -18,6 +18,7 @@
 #define HEADLESS 0
 
 typedef enum GameStage { LOGO, TITLE, GAMEPLAY, ENDING } GameStage;
+typedef enum TitleParts { START, SETUP, BUILD_BY, CREDITS } TitleParts;
 typedef enum Result { LOST, WON } Result;
 
 typedef struct Player {
@@ -31,8 +32,14 @@ typedef struct Obs {
 
 #define DAY 1
 
+int frameCount2 = 255;
+void fadeOutBlack() {
+    if (frameCount2 > 1) frameCount2 -= 2;
+    DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, (Color){19, 30, 22, frameCount2});
+}
+
 int main() {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "DINO-RAYLIB_NEAT");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "RAYLIB_NEAT");
 
     Texture player_run = LoadTexture("./server/game/assets/PLAYER/player_run.png");
     Texture player_jump = LoadTexture("./server/game/assets/PLAYER/player_jump.png");
@@ -49,8 +56,14 @@ int main() {
         LoadTexture("server/game/assets/DAY/LAYERS/L5.png"),
     };
 
-    GameStage screen = GAMEPLAY;
+    Image background = LoadImage("server/game/assets/BACK.png");
+    ImageFormat(&background, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
+    Texture background_img = LoadTextureFromImage(background);
+
+    GameStage screen = LOGO;
+    TitleParts part = START;
     int frameCount = 0;
+    // int frameCount2 = 255;
     int frameTotal = 0;
     float SPEED = 1.0f;
 
@@ -80,16 +93,42 @@ int main() {
         switch (screen) {
             case LOGO: {
                 frameCount++;
+                if (frameCount > 3 * FPS) {
+                    screen = TITLE;
+                    frameCount = 0;
+                    frameCount2 = 255;
+                }
             } break;
 
             case TITLE: {
+                if (IsKeyPressed(KEY_P)) {
+                    screen = GAMEPLAY;
+                    frameCount2 = 255;
+                }
+
+                if (IsKeyPressed(KEY_X)) {
+                    part = START;
+                    frameCount2 = 255;
+                }
+                if (IsKeyPressed(KEY_S)) {
+                    part = SETUP;
+                    frameCount2 = 255;
+                }
+                if (IsKeyPressed(KEY_B)) {
+                    part = BUILD_BY;
+                    frameCount2 = 255;
+                }
+                if (IsKeyPressed(KEY_C)) {
+                    part = CREDITS;
+                    frameCount2 = 255;
+                }
             } break;
 
             case GAMEPLAY: {
                 frameCount++;
                 frameTotal++;
 
-                if(SPEED <= PLAYER_MAX_SPEED_SCALE) SPEED += 0.0003f;
+                if (SPEED <= PLAYER_MAX_SPEED_SCALE) SPEED += 0.0003f;
 
                 scrollL0 -= 0.1 * SPEED;
                 scrollL1 -= 0.5 * SPEED;
@@ -118,10 +157,7 @@ int main() {
                 else
                     jumpFlag = 0;
 
-                if (jumpFlag == 0 && player.pos.y != PLAYER_POS_Y) {
-                    player.pos.y += 8;
-                }
-                // else if(jumpflag == 1 && )
+                if (jumpFlag == 0 && player.pos.y < PLAYER_POS_Y) player.pos.y += 8;
 
             } break;
 
@@ -132,14 +168,84 @@ int main() {
                 break;
         }
 
+        //====================================DRAWING==============================================
+
         BeginDrawing();
-        ClearBackground((Color){19, 30, 22});
+        ClearBackground((Color){19, 30, 22, 255});
 
         switch (screen) {
             case LOGO: {
+                DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
+                char str[] = "ML Project Sem-2";
+
+                if (frameCount % 120 <= 60)
+                    DrawText(str, (SCREEN_WIDTH - MeasureText(str, 60)) / 2,
+                             SCREEN_HEIGHT * 2 / 6, 60, WHITE);
+                else
+                    DrawText(str, (SCREEN_WIDTH - MeasureText(str, 60)) / 2,
+                             SCREEN_HEIGHT * 2 / 6, 60, DARKGRAY);
+
+                fadeOutBlack();
             } break;
 
             case TITLE: {
+                switch (part) {
+                    case START: {
+                        char str_play[] = "Press P: Play";
+                        char str_setup[] = "      S: Setup";
+                        char str_build_by[] = "      B: Build_By";
+                        char str_credit[] = "      C: Credits";
+
+                        DrawTextureEx(background_img, (Vector2){0.0f, 0.0f}, 45.0f, 2.0f,
+                                      BLUE);
+                        int pos = (SCREEN_WIDTH - MeasureText(str_play, 30)) / 2;
+                        int len = MeasureText(str_build_by, 30);
+
+                        DrawRectangleGradientV((int)pos - 20 - 10, 300 - 20 - 10, len + 40,
+                                               120 + 70, WHITE, DARKGRAY);
+                        DrawRectangle((int)pos + 2 - 20 - 10, 300 + 2 - 20 - 10, len + 40 - 4,
+                                      120 - 4 + 70, (Color){19, 30, 22, 255});
+
+                        DrawRectangleGradientH((int)pos - 20, 300 - 20, len + 40, 120 + 70,
+                                               WHITE, DARKGRAY);
+                        DrawRectangle((int)pos + 2 - 20, 300 + 2 - 20, len + 40 - 4,
+                                      120 - 4 + 70, (Color){19, 30, 22, 255});
+
+                        DrawText(str_play, pos, 300, 30, WHITE);
+                        DrawText(str_setup, pos, 340, 30, WHITE);
+                        DrawText(str_build_by, pos, 380, 30, WHITE);
+                        DrawText(str_credit, pos, 420, 30, WHITE);
+
+                        fadeOutBlack();
+                    } break;
+
+                    case SETUP: {
+                        DrawTextureRec(background_img,
+                                       (Rectangle){100, 100, (float)SCREEN_WIDTH * 9 / 10,
+                                                   (float)SCREEN_HEIGHT * 1 / 5},
+                                       (Vector2){(float)SCREEN_WIDTH / 20, 20}, RED);
+                        fadeOutBlack();
+                    } break;
+
+                    case BUILD_BY: {
+                        DrawTextureRec(background_img,
+                                       (Rectangle){200, 200, (float)SCREEN_WIDTH * 9 / 10,
+                                                   (float)SCREEN_HEIGHT * 1 / 5},
+                                       (Vector2){(float)SCREEN_WIDTH / 20, 20}, ORANGE);
+                        fadeOutBlack();
+                    } break;
+
+                    case CREDITS: {
+                        DrawTextureRec(background_img,
+                                       (Rectangle){0, 300, (float)SCREEN_WIDTH * 9 / 10,
+                                                   (float)SCREEN_HEIGHT * 1 / 5},
+                                       (Vector2){(float)SCREEN_WIDTH / 20, 20}, VIOLET);
+                        fadeOutBlack();
+                    } break;
+
+                    default:
+                        break;
+                }
             } break;
 
             case GAMEPLAY: {
@@ -189,8 +295,9 @@ int main() {
                                 (float)roller.width / 10 * 0.2 * 3, roller.height * 0.2},
                     (Vector2){0, 0}, 0.0f, WHITE);
                 // DrawTexturePro(
-                //     roller, (Rectangle){(float)roller.width/10, 0, (float)roller.width / 10, roller.height},
-                //     (Rectangle){SCREEN_WIDTH + scrollL5 + 50, PLAYER_POS_Y - 15,
+                //     roller, (Rectangle){(float)roller.width/10, 0, (float)roller.width / 10,
+                //     roller.height}, (Rectangle){SCREEN_WIDTH + scrollL5 + 50, PLAYER_POS_Y -
+                //     15,
                 //                 (float)roller.width / 10 * 0.2, roller.height * 0.2},
                 //     (Vector2){0, 0}, 0.0f, WHITE);
 
@@ -198,13 +305,17 @@ int main() {
                 DrawTextureEx(day[5], (Vector2){scrollL5 + SCREEN_WIDTH, 0}, 0.0f, scale,
                               WHITE);
 
-
                 DrawFPS(30, 30);
-                DrawText(TextFormat("SPEED %d%%", (int)((SPEED)/PLAYER_MAX_SPEED_SCALE * 100)), 130, 30, 20, BLACK);
-                DrawText(TextFormat("TIME %d", frameTotal/FPS), 260, 30, 20, BLACK);
+                DrawText(TextFormat("SPEED %d%%",
+                                    (int)((SPEED - 1) / (PLAYER_MAX_SPEED_SCALE - 1) * 100)),
+                         130, 30, 20, BLACK);
+                DrawText(TextFormat("TIME %d", frameTotal / FPS), 260, 30, 20, BLACK);
+
+                fadeOutBlack();
             } break;
 
             case ENDING: {
+                fadeOutBlack();
             } break;
 
             default:
@@ -214,6 +325,8 @@ int main() {
     }
 
     for (int i = 0; i < 6; i++) UnloadTexture(day[i]);
+    UnloadImage(background);
+    UnloadTexture(background_img);
     UnloadTexture(player_run);
     UnloadTexture(player_jump);
     UnloadTexture(player_dead);
