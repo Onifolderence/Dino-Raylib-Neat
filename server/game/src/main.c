@@ -9,6 +9,7 @@
 #define PLAYER_BOXES 8
 #define CHARACTER_SCALING 3
 #define PLAYER_POS_Y 670
+#define PLAYER_MAX_SPEED_SCALE 4
 
 #define JUMP_HEIGHT 250
 
@@ -50,6 +51,7 @@ int main() {
 
     GameStage screen = GAMEPLAY;
     int frameCount = 0;
+    int frameTotal = 0;
     float SPEED = 1.0f;
 
     int spriteSpeed = 10;
@@ -85,7 +87,9 @@ int main() {
 
             case GAMEPLAY: {
                 frameCount++;
-                SPEED += 0.0003f;
+                frameTotal++;
+
+                if(SPEED <= PLAYER_MAX_SPEED_SCALE) SPEED += 0.0003f;
 
                 scrollL0 -= 0.1 * SPEED;
                 scrollL1 -= 0.5 * SPEED;
@@ -180,21 +184,24 @@ int main() {
 
                 // DrawTextureEx(roller, (Vector2){0.0f, 0.0f}, 0.0f, 0.25, WHITE);
                 DrawTexturePro(
-                    roller, (Rectangle){0, 0, (float)roller.width / 10, roller.height},
+                    roller, (Rectangle){0, 0, (float)roller.width / 10 * 3, roller.height},
                     (Rectangle){SCREEN_WIDTH + scrollL5, PLAYER_POS_Y - 15,
-                                (float)roller.width / 10 * 0.2, roller.height * 0.2},
+                                (float)roller.width / 10 * 0.2 * 3, roller.height * 0.2},
                     (Vector2){0, 0}, 0.0f, WHITE);
-                DrawTexturePro(
-                    roller, (Rectangle){0, 0, (float)roller.width / 10, roller.height},
-                    (Rectangle){SCREEN_WIDTH + scrollL5 + 50, PLAYER_POS_Y - 15,
-                                (float)roller.width / 10 * 0.2, roller.height * 0.2},
-                    (Vector2){0, 0}, 0.0f, WHITE);
+                // DrawTexturePro(
+                //     roller, (Rectangle){(float)roller.width/10, 0, (float)roller.width / 10, roller.height},
+                //     (Rectangle){SCREEN_WIDTH + scrollL5 + 50, PLAYER_POS_Y - 15,
+                //                 (float)roller.width / 10 * 0.2, roller.height * 0.2},
+                //     (Vector2){0, 0}, 0.0f, WHITE);
 
                 DrawTextureEx(day[5], (Vector2){scrollL5, 0}, 0.0f, scale, WHITE);
                 DrawTextureEx(day[5], (Vector2){scrollL5 + SCREEN_WIDTH, 0}, 0.0f, scale,
                               WHITE);
 
+
                 DrawFPS(30, 30);
+                DrawText(TextFormat("SPEED %d%%", (int)((SPEED)/PLAYER_MAX_SPEED_SCALE * 100)), 130, 30, 20, BLACK);
+                DrawText(TextFormat("TIME %d", frameTotal/FPS), 260, 30, 20, BLACK);
             } break;
 
             case ENDING: {
