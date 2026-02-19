@@ -1,1 +1,0 @@
-server/game/assets/DAY/

@@ -19,6 +19,7 @@
 
 typedef enum GameStage { LOGO, TITLE, GAMEPLAY, ENDING } GameStage;
 typedef enum TitleParts { START, SETUP, BUILD_BY, CREDITS } TitleParts;
+typedef enum BrightDark { BRIGHT, DARK } BrightDark;
 typedef enum Result { LOST, WON } Result;
 
 typedef struct Player {
@@ -30,12 +31,16 @@ typedef struct Player {
 typedef struct Obs {
 } Obs;
 
-#define DAY 1
+// #define DAY 1
 
 int frameCount2 = 255;
 void fadeOutBlack() {
-    if (frameCount2 > 1) frameCount2 -= 2;
+    if (frameCount2 >= 3) frameCount2 -= 3;
     DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, (Color){19, 30, 22, frameCount2});
+}
+void fadeOutWhite() {
+    if (frameCount2 >= 3) frameCount2 -= 3;
+    DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, (Color){236, 234, 199, frameCount2});
 }
 
 int main() {
@@ -56,12 +61,28 @@ int main() {
         LoadTexture("server/game/assets/DAY/LAYERS/L5.png"),
     };
 
+    Texture night[] = {
+        LoadTexture("server/game/assets/NIGHT/LAYERS/L0.png"),
+        LoadTexture("server/game/assets/NIGHT/LAYERS/L1.png"),
+        LoadTexture("server/game/assets/NIGHT/LAYERS/L2.png"),
+        LoadTexture("server/game/assets/NIGHT/LAYERS/L3.png"),
+        LoadTexture("server/game/assets/NIGHT/LAYERS/L4.png"),
+        LoadTexture("server/game/assets/NIGHT/LAYERS/L5.png"),
+        LoadTexture("server/game/assets/NIGHT/LAYERS/L6.png"),
+        LoadTexture("server/game/assets/NIGHT/LAYERS/L7.png"),
+        LoadTexture("server/game/assets/NIGHT/LAYERS/L8.png"),
+
+        LoadTexture("server/game/assets/NIGHT/LAYERS/B1.png"),
+        LoadTexture("server/game/assets/NIGHT/LAYERS/B2.png"),
+    };
+
     Image background = LoadImage("server/game/assets/BACK.png");
     ImageFormat(&background, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
     Texture background_img = LoadTextureFromImage(background);
 
     GameStage screen = LOGO;
     TitleParts part = START;
+    BrightDark bd = BRIGHT;
     int frameCount = 0;
     // int frameCount2 = 255;
     int frameTotal = 0;
@@ -87,6 +108,7 @@ int main() {
     int jumpFlag = 0;
 
     float scale = (float)GetScreenWidth() / day[0].width;
+    float scale2 = (float)GetScreenWidth() / night[0].width;
     SetTargetFPS(120);
 
     while (!WindowShouldClose()) {
@@ -158,6 +180,11 @@ int main() {
                     jumpFlag = 0;
 
                 if (jumpFlag == 0 && player.pos.y < PLAYER_POS_Y) player.pos.y += 8;
+
+                if ((int)frameTotal / FPS == 5) {
+                    bd = DARK;
+                    frameCount2 = 255;
+                }
 
             } break;
 
@@ -249,69 +276,167 @@ int main() {
             } break;
 
             case GAMEPLAY: {
-                DrawTextureEx(day[0], (Vector2){scrollL0, 0}, 0.0f, scale, WHITE);
-                DrawTextureEx(day[0], (Vector2){scrollL0 + SCREEN_WIDTH, 0}, 0.0f, scale,
-                              WHITE);
+                switch (bd) {
+                    case BRIGHT: {
+                        DrawTextureEx(day[0], (Vector2){scrollL0, 0}, 0.0f, scale, WHITE);
+                        DrawTextureEx(day[0], (Vector2){scrollL0 + SCREEN_WIDTH, 0}, 0.0f,
+                                      scale, WHITE);
 
-                DrawTextureEx(day[1], (Vector2){scrollL1, 0}, 0.0f, scale, WHITE);
-                DrawTextureEx(day[1], (Vector2){scrollL1 + SCREEN_WIDTH, 0}, 0.0f, scale,
-                              WHITE);
+                        DrawTextureEx(day[1], (Vector2){scrollL1, 0}, 0.0f, scale, WHITE);
+                        DrawTextureEx(day[1], (Vector2){scrollL1 + SCREEN_WIDTH, 0}, 0.0f,
+                                      scale, WHITE);
 
-                DrawTextureEx(day[2], (Vector2){scrollL2, 0}, 0.0f, scale, WHITE);
-                DrawTextureEx(day[2], (Vector2){scrollL2 + SCREEN_WIDTH, 0}, 0.0f, scale,
-                              WHITE);
+                        DrawTextureEx(day[2], (Vector2){scrollL2, 0}, 0.0f, scale, WHITE);
+                        DrawTextureEx(day[2], (Vector2){scrollL2 + SCREEN_WIDTH, 0}, 0.0f,
+                                      scale, WHITE);
 
-                DrawTextureEx(day[3], (Vector2){scrollL3, 0}, 0.0f, scale, WHITE);
-                DrawTextureEx(day[3], (Vector2){scrollL3 + SCREEN_WIDTH, 0}, 0.0f, scale,
-                              WHITE);
+                        DrawTextureEx(day[3], (Vector2){scrollL3, 0}, 0.0f, scale, WHITE);
+                        DrawTextureEx(day[3], (Vector2){scrollL3 + SCREEN_WIDTH, 0}, 0.0f,
+                                      scale, WHITE);
 
-                DrawTextureEx(day[4], (Vector2){scrollL4, 0}, 0.0f, scale, WHITE);
-                DrawTextureEx(day[4], (Vector2){scrollL4 + SCREEN_WIDTH, 0}, 0.0f, scale,
-                              WHITE);
+                        DrawTextureEx(day[4], (Vector2){scrollL4, 0}, 0.0f, scale, WHITE);
+                        DrawTextureEx(day[4], (Vector2){scrollL4 + SCREEN_WIDTH, 0}, 0.0f,
+                                      scale, WHITE);
 
-                // Player
-                if (jumpFlag == 0 && player.pos.y == PLAYER_POS_Y) {
-                    DrawTexturePro(player_run,
-                                   (Rectangle){(float)playerBox * ethWidth, 0, (float)ethWidth,
-                                               player_run.height},
-                                   (Rectangle){player.pos.x, player.pos.y,
-                                               (float)ethWidth * CHARACTER_SCALING,
-                                               (float)player_run.height * CHARACTER_SCALING},
-                                   (Vector2){0.0f, 0.0f}, 0.0f, WHITE);
-                } else {
-                    DrawTexturePro(player_jump,
-                                   (Rectangle){(float)playerBox * ethWidth, 0, (float)ethWidth,
-                                               player_run.height},
-                                   (Rectangle){player.pos.x, player.pos.y,
-                                               (float)ethWidth * CHARACTER_SCALING,
-                                               (float)player_run.height * CHARACTER_SCALING},
-                                   (Vector2){0.0f, 0.0f}, 0.0f, WHITE);
+                        // Player
+                        if (jumpFlag == 0 && player.pos.y == PLAYER_POS_Y) {
+                            DrawTexturePro(
+                                player_run,
+                                (Rectangle){(float)playerBox * ethWidth, 0, (float)ethWidth,
+                                            player_run.height},
+                                (Rectangle){player.pos.x, player.pos.y,
+                                            (float)ethWidth * CHARACTER_SCALING,
+                                            (float)player_run.height * CHARACTER_SCALING},
+                                (Vector2){0.0f, 0.0f}, 0.0f, WHITE);
+                        } else {
+                            DrawTexturePro(
+                                player_jump,
+                                (Rectangle){(float)playerBox * ethWidth, 0, (float)ethWidth,
+                                            player_run.height},
+                                (Rectangle){player.pos.x, player.pos.y,
+                                            (float)ethWidth * CHARACTER_SCALING,
+                                            (float)player_run.height * CHARACTER_SCALING},
+                                (Vector2){0.0f, 0.0f}, 0.0f, WHITE);
+                        }
+
+                        // DrawTextureEx(roller, (Vector2){0.0f, 0.0f}, 0.0f, 0.25, WHITE);
+                        DrawTexturePro(
+                            roller,
+                            (Rectangle){0, 0, (float)roller.width / 10 * 3, roller.height},
+                            (Rectangle){SCREEN_WIDTH + scrollL5, PLAYER_POS_Y - 15,
+                                        (float)roller.width / 10 * 0.2 * 3,
+                                        roller.height * 0.2},
+                            (Vector2){0, 0}, 0.0f, WHITE);
+                        // DrawTexturePro(
+                        //     roller, (Rectangle){(float)roller.width/10, 0,
+                        //     (float)roller.width / 10, roller.height},
+                        //     (Rectangle){SCREEN_WIDTH + scrollL5 + 50, PLAYER_POS_Y - 15,
+                        //                 (float)roller.width / 10 * 0.2, roller.height *
+                        //                 0.2},
+                        //     (Vector2){0, 0}, 0.0f, WHITE);
+
+                        DrawTextureEx(day[5], (Vector2){scrollL5, 0}, 0.0f, scale, WHITE);
+                        DrawTextureEx(day[5], (Vector2){scrollL5 + SCREEN_WIDTH, 0}, 0.0f,
+                                      scale, WHITE);
+                        DrawText(TextFormat(
+                                     "SPEED %d%%",
+                                     (int)((SPEED - 1) / (PLAYER_MAX_SPEED_SCALE - 1) * 100)),
+                                 130, 30, 20, BLACK);
+                        DrawText(TextFormat("TIME %d", (int)frameTotal / FPS), 260, 30, 20,
+                                 BLACK);
+                        fadeOutBlack();
+                    } break;
+
+                    case DARK: {
+
+                        DrawTextureEx(night[0], (Vector2){0, -500}, 0.0f, scale2, WHITE);
+                        DrawTextureEx(night[1], (Vector2){0, -500}, 0.0f, scale2, WHITE);
+                        DrawTextureEx(night[2], (Vector2){scrollL0, -500}, 0.0f, scale2,
+                                      WHITE);
+                        DrawTextureEx(night[2], (Vector2){scrollL0 + SCREEN_WIDTH, -500}, 0.0f,
+                                      scale2, WHITE);
+
+                        DrawTextureEx(night[3], (Vector2){scrollL1, -500}, 0.0f, scale2,
+                                      WHITE);
+                        DrawTextureEx(night[3], (Vector2){scrollL1 + SCREEN_WIDTH, -500}, 0.0f,
+                                      scale2, WHITE);
+
+                        DrawTextureEx(night[4], (Vector2){scrollL2, -500}, 0.0f, scale2,
+                                      WHITE);
+                        DrawTextureEx(night[4], (Vector2){scrollL2 + SCREEN_WIDTH, -500}, 0.0f,
+                                      scale2, WHITE);
+
+                        DrawTextureEx(night[5], (Vector2){scrollL3, -500}, 0.0f, scale2,
+                                      WHITE);
+                        DrawTextureEx(night[5], (Vector2){scrollL3 + SCREEN_WIDTH, -500}, 0.0f,
+                                      scale2, WHITE);
+
+                        DrawTextureEx(night[6], (Vector2){scrollL4, -500}, 0.0f, scale2,
+                                      WHITE);
+                        DrawTextureEx(night[6], (Vector2){scrollL4 + SCREEN_WIDTH, -500}, 0.0f,
+                                      scale2, WHITE);
+
+                        // Player
+                        if (jumpFlag == 0 && player.pos.y == PLAYER_POS_Y) {
+                            DrawTexturePro(
+                                player_run,
+                                (Rectangle){(float)playerBox * ethWidth, 0, (float)ethWidth,
+                                            player_run.height},
+                                (Rectangle){player.pos.x, player.pos.y,
+                                            (float)ethWidth * CHARACTER_SCALING,
+                                            (float)player_run.height * CHARACTER_SCALING},
+                                (Vector2){0.0f, 0.0f}, 0.0f, WHITE);
+                        } else {
+                            DrawTexturePro(
+                                player_jump,
+                                (Rectangle){(float)playerBox * ethWidth, 0, (float)ethWidth,
+                                            player_run.height},
+                                (Rectangle){player.pos.x, player.pos.y,
+                                            (float)ethWidth * CHARACTER_SCALING,
+                                            (float)player_run.height * CHARACTER_SCALING},
+                                (Vector2){0.0f, 0.0f}, 0.0f, WHITE);
+                        }
+
+                        // DrawTextureEx(roller, (Vector2){0.0f, 0.0f}, 0.0f, 0.25, WHITE);
+                        DrawTexturePro(
+                            roller,
+                            (Rectangle){0, 0, (float)roller.width / 10 * 3, roller.height},
+                            (Rectangle){SCREEN_WIDTH + scrollL5, PLAYER_POS_Y - 15,
+                                        (float)roller.width / 10 * 0.2 * 3,
+                                        roller.height * 0.2},
+                            (Vector2){0, 0}, 0.0f, WHITE);
+                        // DrawTexturePro(
+                        //     roller, (Rectangle){(float)roller.width/10, 0,
+                        //     (float)roller.width / 10, roller.height},
+                        //     (Rectangle){SCREEN_WIDTH + scrollL5 + 50, PLAYER_POS_Y - 15,
+                        //                 (float)roller.width / 10 * 0.2, roller.height *
+                        //                 0.2},
+                        //     (Vector2){0, 0}, 0.0f, WHITE);
+
+                        DrawTextureEx(night[7], (Vector2){scrollL5, -500}, 0.0f, scale2,
+                                      WHITE);
+                        DrawTextureEx(night[7], (Vector2){scrollL5 + SCREEN_WIDTH, -500}, 0.0f,
+                                      scale2, WHITE);
+                        DrawTextureEx(night[8], (Vector2){scrollL5, -500}, 0.0f, scale2,
+                                      WHITE);
+                        DrawTextureEx(night[8], (Vector2){scrollL5 + SCREEN_WIDTH, -500}, 0.0f,
+                                      scale2, WHITE);
+                        // DrawTextureEx(day[5], (Vector2){scrollL5, 0}, 0.0f, scale, WHITE);
+                        // DrawTextureEx(day[5], (Vector2){scrollL5 + SCREEN_WIDTH, 0}, 0.0f,
+                        // scale,
+                        //               WHITE);
+
+                        DrawText(TextFormat(
+                                     "SPEED %d%%",
+                                     (int)((SPEED - 1) / (PLAYER_MAX_SPEED_SCALE - 1) * 100)),
+                                 130, 30, 20, WHITE);
+                        DrawText(TextFormat("TIME %d", (int)frameTotal / FPS), 260, 30, 20,
+                                 WHITE);
+                        fadeOutWhite();
+                    } break;
                 }
 
-                // DrawTextureEx(roller, (Vector2){0.0f, 0.0f}, 0.0f, 0.25, WHITE);
-                DrawTexturePro(
-                    roller, (Rectangle){0, 0, (float)roller.width / 10 * 3, roller.height},
-                    (Rectangle){SCREEN_WIDTH + scrollL5, PLAYER_POS_Y - 15,
-                                (float)roller.width / 10 * 0.2 * 3, roller.height * 0.2},
-                    (Vector2){0, 0}, 0.0f, WHITE);
-                // DrawTexturePro(
-                //     roller, (Rectangle){(float)roller.width/10, 0, (float)roller.width / 10,
-                //     roller.height}, (Rectangle){SCREEN_WIDTH + scrollL5 + 50, PLAYER_POS_Y -
-                //     15,
-                //                 (float)roller.width / 10 * 0.2, roller.height * 0.2},
-                //     (Vector2){0, 0}, 0.0f, WHITE);
-
-                DrawTextureEx(day[5], (Vector2){scrollL5, 0}, 0.0f, scale, WHITE);
-                DrawTextureEx(day[5], (Vector2){scrollL5 + SCREEN_WIDTH, 0}, 0.0f, scale,
-                              WHITE);
-
                 DrawFPS(30, 30);
-                DrawText(TextFormat("SPEED %d%%",
-                                    (int)((SPEED - 1) / (PLAYER_MAX_SPEED_SCALE - 1) * 100)),
-                         130, 30, 20, BLACK);
-                DrawText(TextFormat("TIME %d", frameTotal / FPS), 260, 30, 20, BLACK);
-
-                fadeOutBlack();
             } break;
 
             case ENDING: {
@@ -325,6 +450,7 @@ int main() {
     }
 
     for (int i = 0; i < 6; i++) UnloadTexture(day[i]);
+    for (int i = 0; i < 11; i++) UnloadTexture(night[i]);
     UnloadImage(background);
     UnloadTexture(background_img);
     UnloadTexture(player_run);
