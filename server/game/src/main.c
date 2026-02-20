@@ -1,6 +1,8 @@
 #include <raylib.h>
 #include <stdbool.h>
-// #include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #define SCREEN_WIDTH 1600
 #define SCREEN_HEIGHT 900
@@ -10,6 +12,7 @@
 #define CHARACTER_SCALING 3
 #define PLAYER_POS_Y 670
 #define PLAYER_MAX_SPEED_SCALE 4
+// #define THRESHOLD
 
 #define JUMP_HEIGHT 250
 
@@ -29,9 +32,20 @@ typedef struct Player {
 } Player;
 
 typedef struct Obs {
+    int probability;
+    int quant;
+    int delay;
 } Obs;
 
 // #define DAY 1
+
+Obs ObsFunction(int time) {
+    printf("\n%d\n", time);
+    int prob = (int)((rand() % 100 + 1) * (float)time / 50);
+    int quant = (int)((rand() % 4 + 1) * (float)time / 10);
+    int delay = rand() % 12 + 1;
+    return (Obs){prob, quant, delay};
+}
 
 int frameCount2 = 255;
 void fadeOutBlack() {
@@ -44,6 +58,7 @@ void fadeOutWhite() {
 }
 
 int main() {
+    srand(time(NULL));
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "RAYLIB_NEAT");
 
     Texture player_run = LoadTexture("./server/game/assets/PLAYER/player_run.png");
@@ -90,6 +105,7 @@ int main() {
 
     int spriteSpeed = 10;
     int playerBox = 0;
+    Obs x = {0, 0, 0};
 
     float scrollL0 = 0.0f;
     float scrollL1 = 0.0f;
@@ -181,10 +197,12 @@ int main() {
 
                 if (jumpFlag == 0 && player.pos.y < PLAYER_POS_Y) player.pos.y += 8;
 
-                if ((int)frameTotal / FPS == 5) {
+                if ((int)frameTotal / FPS == 20) {
                     bd = DARK;
                     frameCount2 = 255;
                 }
+                x = ObsFunction((int)frameTotal / FPS);
+                printf("\t%d\t%d\t%d\n", x.probability, x.quant, x.delay);
 
             } break;
 
