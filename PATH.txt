@@ -1,0 +1,640 @@
+Hardware transition: Phase 3 → Phase 4 (when you get Ryzen + RTX 5060)
+
+1.1 HOW COMPUTERS ACTUALLY WORK
+├── Resources:
+│   ├── Website: https://www.nand2tetris.org/ [PRIMARY]
+│   ├── YouTube: Nand2Tetris course playlist
+│   └── Book (optional): Code: The Hidden Language (Petzold)
+├── Projects:
+│   ├── Build a simple VM
+│   ├── Write a toy assembler
+│   └── Implement a basic CPU emulator
+└── Why first: Everything else assumes you understand computation
+
+1.2 MODERN C++ FUNDAMENTALS
+├── Resources:
+│   ├── Website: https://learncpp.com [START HERE]
+│   ├── Reference: https://cppreference.com [BOOKMARK]
+│   ├── YouTube: TheCherno - Modern C++ series
+│   ├── YouTube: Jason Turner - C++ Weekly
+│   └── Book: Effective Modern C++ (Meyers) [ESSENTIAL]
+├── Projects:
+│   ├── Custom STL-like container (vector, map)
+│   ├── Memory pool allocator
+│   └── Simple ECS (Entity Component System)
+└── Why now: Your primary implementation language
+
+1.3 DATA STRUCTURES & ALGORITHMS (CORE)
+├── Resources:
+│   ├── Website: https://neetcode.io/
+│   ├── Website: https://cp-algorithms.com/
+│   ├── YouTube: WilliamFiset
+│   └── Book: Programming Pearls [TIMELESS]
+├── Projects:
+│   ├── Graph algorithms with visualization
+│   ├── Build your own LeetCode judge
+│   └── Optimized pathfinding for games
+└── Why now: Required for everything else
+
+1.4 DISCRETE MATH & PROBABILITY
+├── Resources:
+│   ├── Website: https://ocw.mit.edu/courses/6-042j/ [MIT OCW]
+│   ├── Website: https://seeing-theory.brown.edu/
+│   ├── YouTube: 3Blue1Brown - Probability series
+│   ├── YouTube: StatQuest
+│   └── Book: Mathematics for Computer Science (Lehman et al.)
+├── Focus areas:
+│   ├── Logic & proof techniques
+│   ├── Combinatorics
+│   ├── Graph theory
+│   ├── Probability basics
+│   └── Random variables
+└── Why now: Foundation for ML and quant math
+
+1.5 LINEAR ALGEBRA (DEEP)
+├── Resources:
+│   ├── YouTube: 3Blue1Brown - Essence of Linear Algebra [START]
+│   ├── Book: Linear Algebra Done Right (Axler)
+│   └── Reference: Numerical Linear Algebra (Trefethen) [LATER]
+├── Key concepts:
+│   ├── Vector spaces
+│   ├── Eigenvalues/eigenvectors
+│   ├── SVD deeply
+│   └── Matrix decompositions
+└── Why now: Critical for graphics AND ML
+
+1.6 GIT & BUILD SYSTEMS
+├── Resources:
+│   ├── Git internals documentation
+│   ├── CMake mastery tutorials
+│   └── Linux performance tools (perf, valgrind)
+└── Why now: Professional workflow from day one
+
+PHASE 1 CAPSTONE PROJECT:
+"Software Rasterizer from Scratch"
+- Full graphics pipeline (clip → raster → shade)
+- CPU-only implementation
+- Teaches: geometry, memory layouts, optimization
+- Deliverable: Renders 3D models, sharable demo
+
+2.1 COMPUTER SYSTEMS
+├── Resources:
+│   ├── Book: Computer Systems: A Programmer's Perspective [ESSENTIAL]
+│   ├── YouTube: MIT 6.S081 Operating Systems
+│   └── YouTube: Jacob Sorber (systems intuition)
+├── Key topics:
+│   ├── Memory hierarchy
+│   ├── Cache optimization
+│   ├── Virtual memory
+│   └── Assembly basics
+└── Why now: Understand performance deeply
+
+2.2 OPERATING SYSTEMS
+├── Resources:
+│   ├── Website: https://pages.cs.wisc.edu/~remzi/OSTEP/ [FREE!]
+│   └── Book: Operating Systems: Three Easy Pieces [SAME]
+├── Projects:
+│   ├── Build a shell
+│   ├── Implement a thread pool
+│   └── Write a lock-free queue
+└── Laptop note: Use QEMU + lightweight distros
+
+2.3 CONCURRENCY & PARALLELISM
+├── Resources:
+│   └── Book: C++ Concurrency in Action (Williams)
+├── Projects:
+│   ├── Thread pool with work stealing
+│   ├── Lock-free data structures
+│   └── Parallel algorithms
+└── Why now: Before GPU programming
+
+2.4 RASTERIZATION GRAPHICS (OpenGL)
+├── Resources:
+│   ├── Website: https://learnopengl.com/ [PRIMARY]
+│   ├── YouTube: TheCherno - OpenGL series
+│   └── Engine: raylib [LAPTOP-FRIENDLY]
+├── Projects:
+│   ├── OpenGL renderer from scratch
+│   ├── Implement SSAO (Screen-Space Ambient Occlusion)
+│   ├── Shadow mapping + cascaded shadows
+│   └── SSR (Screen-Space Reflections)
+├── DO on laptop:
+│   ├── ✅ Rasterization
+│   ├── ✅ Screen-space effects
+│   └── ✅ Deferred rendering
+└── DON'T yet:
+    ├── ❌ Path tracing
+    ├── ❌ Unreal Lumen
+    └── ❌ Hardware ray tracing
+
+2.5 INTRO TO RAY TRACING (CPU)
+├── Resources:
+│   └── Website: https://raytracing.github.io/ [Ray Tracing in One Weekend]
+├── Projects:
+│   ├── Basic path tracer (small scenes)
+│   ├── BVH acceleration structures
+│   └── Material system (PBR basics)
+└── Laptop note: Keep scenes small, use temporal accumulation
+
+PHASE 2 CAPSTONE PROJECT:
+"Screen-Space GI Playground"
+- Multiple GI techniques (SSAO, SSR, probe-based)
+- Performance profiling built-in
+- Teaches: modern rendering tricks without ray tracing
+- Deliverable: Interactive demo with comparisons
+
+3.1 MULTIVARIABLE CALCULUS & OPTIMIZATION
+├── Resources:
+│   ├── YouTube: 3Blue1Brown - Calculus series
+│   └── Book: Calculus (Stewart) - chapters on gradients, Jacobians
+├── Key concepts:
+│   ├── Partial derivatives
+│   ├── Gradients & Jacobians
+│   ├── Hessians
+│   ├── Optimization theory
+│   └── Convex optimization
+└── Why now: Required to derive ML algorithms
+
+3.2 INFORMATION THEORY & STATISTICS
+├── Resources:
+│   ├── Book: Information Theory, Inference, and Learning (MacKay)
+│   └── Book: Introduction to Statistical Learning [ESSENTIAL]
+├── Key concepts:
+│   ├── Entropy & KL divergence
+│   ├── Mutual information
+│   ├── Statistical inference
+│   └── Bias-variance tradeoff
+└── Why now: Understand ML beyond recipes
+
+3.3 MACHINE LEARNING (FROM SCRATCH)
+├── Resources:
+│   ├── Website: https://scikit-learn.org/stable/
+│   ├── YouTube: StatQuest (intuition)
+│   ├── YouTube: Andrej Karpathy - Neural Networks Zero to Hero
+│   ├── Book: Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow (Géron) [START HERE - CURRENT COURSE]
+│   ├── Book: Introduction to Statistical Learning (Hastie, Tibshirani, Friedman)
+│   ├── Book: Understanding Machine Learning (Shalev-Shwartz)
+│   ├── Book: Pattern Recognition and Machine Learning (Bishop) [ADVANCED]
+│   ├── Book: The Elements of Statistical Learning (Hastie, Tibshirani, Friedman) [ADVANCED]
+│   ├── Book: Machine Learning: A Probabilistic Perspective (Murphy) [REFERENCE]
+│   └── Course: fast.ai - Practical Deep Learning Part 1 [HIGHLY RECOMMENDED]
+│       └── https://course.fast.ai/
+├── "From Scratch" rule:
+│   ├── 1. Implement in NumPy
+│   ├── 2. Implement in PyTorch
+│   └── 3. Then use libraries
+├── Must implement yourself:
+│   ├── Linear regression (gradient descent)
+│   ├── Logistic regression
+│   ├── Backpropagation
+│   ├── Autograd engine
+│   ├── Optimizers (SGD, Adam)
+│   ├── BatchNorm
+│   └── Simple neural network
+└── Projects:
+    ├── ML visualization dashboard
+    ├── Bias-variance explorer
+    ├── PCA/SVD visual tool
+    └── Kaggle tabular competitions
+
+3.4 DEEP LEARNING FOUNDATIONS
+├── Resources:
+│   ├── Website: https://pytorch.org/tutorials/
+│   ├── **Course: fast.ai - Practical Deep Learning for Coders** [TOP PRIORITY]
+│   │   ├── https://course.fast.ai/
+│   │   ├── Why it's great:
+│   │   │   ├── Top-down approach (use models first, then understand internals)
+│   │   │   ├── Created by Jeremy Howard (ex-Kaggle President, elite teacher)
+│   │   │   ├── Free, comprehensive (30+ hours video)
+│   │   │   ├── Code-first (not math-first) - perfect for programmers
+│   │   │   ├── Builds real projects from day 1
+│   │   │   ├── Uses PyTorch + fastai library
+│   │   │   └── Hundreds of students became Kaggle winners after this
+│   │   ├── Part 1: Practical foundations
+│   │   │   ├── Computer vision (CNNs, ResNet, transfer learning)
+│   │   │   ├── NLP (RNNs, transformers, text generation)
+│   │   │   ├── Tabular data (decision trees, embeddings)
+│   │   │   └── Collaborative filtering (recommendation systems)
+│   │   └── Part 2: Foundations from scratch (advanced)
+│   │       ├── Stable Diffusion implementation
+│   │       ├── Build your own deep learning framework
+│   │       ├── Optimizers, normalization, training loops
+│   │       └── Mixed precision, distributed training
+│   ├── Book: Deep Learning (Goodfellow) [REFERENCE ONLY]
+│   └── Book: Machine Learning Yearning (Andrew Ng)
+├── Projects:
+│   ├── Neural network library from scratch
+│   ├── Train CNNs on MNIST (Colab)
+│   ├── Implement attention mechanism
+│   └── CNN kernel visualizer
+└── Laptop strategy: Train small models, use Colab for larger
+
+3.5 SOFTWARE ARCHITECTURE
+├── Resources:
+│   ├── Website: https://refactoring.guru
+│   ├── Book: Designing Data-Intensive Applications [MUST READ]
+│   └── Book: Refactoring (Fowler)
+├── Projects:
+│   ├── Event-driven system
+│   └── Mini backend with clean architecture
+└── Why now: Before building complex systems
+
+PHASE 3 CAPSTONE PROJECT:
+"Neural Network Framework + Autograd"
+- Build your own PyTorch-lite
+- Implements backprop, optimizers, layers
+- Teaches: How DL really works under the hood
+- Deliverable: Train models with your framework
+- NOTE: fast.ai Part 2 essentially guides you through this!
+
+================================================================================
+HARDWARE: NEW LAPTOP (Ryzen + RTX 5060) - transition point
+================================================================================
+
+4.1 STOCHASTIC CALCULUS
+├── Resources:
+│   ├── Book: Stochastic Calculus for Finance I & II (Shreve) [ESSENTIAL]
+│   └── Book: Paul Wilmott on Quantitative Finance [INTUITION]
+├── Key concepts:
+│   ├── Brownian motion
+│   ├── Ito's lemma
+│   ├── SDEs (Stochastic Differential Equations)
+│   └── Geometric Brownian motion
+└── Why now: Foundation for derivatives pricing
+
+4.2 TIME SERIES ANALYSIS
+├── Resources:
+│   └── Book: Time Series Analysis (Tsay)
+├── Key concepts:
+│   ├── ARIMA models
+│   ├── GARCH models
+│   ├── Stationarity
+│   └── Cointegration
+└── Projects:
+    └── Market regime detector (HMM)
+
+4.3 DERIVATIVES & PRICING
+├── Resources:
+│   ├── Book: Options, Futures, and Other Derivatives (Hull)
+│   └── Book: Monte Carlo Methods in Financial Engineering (Glasserman)
+├── Projects:
+│   ├── Monte Carlo option pricer
+│   ├── Black-Scholes implementation
+│   └── Volatility surface visualizer
+└── Computational note: Now you can do heavy simulations
+
+4.4 MARKET MICROSTRUCTURE
+├── Resources:
+│   ├── Book: Market Microstructure Theory (O'Hara)
+│   ├── Book: Algorithmic Trading (Ernest Chan)
+│   └── Book: Advances in Financial ML (López de Prado) [CRITICAL]
+├── Key concepts:
+│   ├── Order books
+│   ├── Bid-ask spread
+│   ├── Liquidity & slippage
+│   ├── Market impact
+│   └── Latency effects
+└── Projects:
+    ├── Limit order book simulator
+    └── Event-driven backtesting engine
+
+4.5 NUMERICAL METHODS FOR FINANCE
+├── Resources:
+│   └── Book: Numerical Methods (Trefethen)
+├── Key topics:
+│   ├── Root finding
+│   ├── PDE solvers
+│   ├── Monte Carlo variance reduction
+│   └── Finite difference methods
+└── Why now: Efficient pricing algorithms
+
+4.6 TRADING SYSTEMS ENGINEERING
+├── Focus:
+│   ├── Event-driven architectures
+│   ├── Backtesting without lookahead bias
+│   ├── Walk-forward validation
+│   ├── Risk engines
+│   └── Execution simulators
+└── Tech stack:
+    ├── C++ for performance
+    └── Python for research
+
+PHASE 4 CAPSTONE PROJECT:
+"Complete Quant Research Platform"
+- Data ingestion pipeline
+- Feature engineering tools
+- Event-driven backtester
+- Risk analytics
+- Web-based visualization dashboard
+- Teaches: End-to-end quant workflow
+- Deliverable: Professional-grade system
+
+5.1 VULKAN / DX12 FUNDAMENTALS
+├── Resources:
+│   ├── Vulkan Tutorial
+│   └── DirectX 12 documentation
+├── Why now: Low-level GPU control
+└── Projects:
+    └── Modern graphics API renderer
+
+5.2 REAL-TIME RAY TRACING
+├── Resources:
+│   ├── Ray Tracing Gems (books I & II)
+│   └── NVIDIA RTX documentation
+├── Topics:
+│   ├── DXR / VkRT pipelines
+│   ├── BVH optimization
+│   ├── Denoising (SVGF, ReSTIR)
+│   └── Hybrid rendering
+└── Projects:
+    ├── Path tracer (GPU-accelerated)
+    ├── ReSTIR GI implementation
+    └── RTX denoising experiments
+
+5.3 ADVANCED RENDERING TECHNIQUES
+├── Topics:
+│   ├── Volumetric rendering
+│   ├── SDF techniques
+│   ├── Voxel-based GI (SVOGI)
+│   ├── Temporal anti-aliasing
+│   └── Dynamic GI solutions
+└── Projects:
+    ├── Volumetric fog system
+    └── Voxel terrain engine (GPU)
+
+5.4 UNREAL ENGINE 5 INTERNALS
+├── Focus:
+│   ├── Nanite geometry system
+│   ├── Lumen GI
+│   ├── Custom rendering passes
+│   └── Engine architecture
+└── Projects:
+    ├── Custom Unreal rendering feature
+    └── Performance analysis tools
+
+5.5 CUDA & GPU PROGRAMMING
+├── Resources:
+│   ├── CUDA Programming Guide
+│   └── Book: Programming Massively Parallel Processors
+├── Projects:
+│   ├── Matrix multiplication kernels
+│   ├── Ray tracing kernels
+│   └── ML operations in CUDA
+└── Why now: Deep GPU understanding
+
+5.6 SHADER OPTIMIZATION
+├── Topics:
+│   ├── GPU architecture
+│   ├── Memory coalescing
+│   ├── Occupancy optimization
+│   └── Profiling tools
+└── Projects:
+    └── Shader performance analyzer
+
+PHASE 5 CAPSTONE PROJECT:
+"Hybrid Renderer: Raster + RT + Compute"
+- Combines rasterization and ray tracing
+- Custom GI solution
+- CUDA-accelerated passes
+- Teaches: Modern AAA rendering pipeline
+- Deliverable: Tech demo rivaling commercial engines
+
+6.1 ADVANCED DEEP LEARNING
+├── Resources:
+│   └── Course: fast.ai - Practical Deep Learning Part 2 [ESSENTIAL]
+│       └── https://course.fast.ai/Lessons/part2.html
+│       └── Covers: Stable Diffusion from scratch, diffusion models, transformers
+├── Topics:
+│   ├── CNN internals (im2col, memory layouts)
+│   ├── Transformer architecture deeply
+│   ├── Attention mechanisms (multi-head, cross)
+│   ├── Diffusion models
+│   ├── Graph neural networks
+│   └── Reinforcement learning (policy gradients, PPO)
+├── Projects:
+│   ├── Transformer from scratch
+│   ├── Diffusion model (image generation)
+│   ├── GNN for graph problems
+│   └── RL agent for simple game
+└── Why now: After solid foundations
+
+6.2 ML SYSTEMS & OPTIMIZATION
+├── Topics:
+│   ├── Distributed training
+│   ├── Mixed precision training
+│   ├── Model compression
+│   ├── Quantization
+│   └── Efficient inference
+└── Projects:
+    └── Optimized inference engine
+
+6.3 QUANT ML (MARKET-SPECIFIC)
+├── Resources:
+│   ├── Website: https://lucylabs.gatech.edu/ml4t/
+│   └── Book: Advances in Financial ML (López de Prado) [DEEP DIVE]
+├── Critical topics:
+│   ├── Label leakage prevention
+│   ├── Non-stationarity handling
+│   ├── Overfitting in regime shifts
+│   ├── Walk-forward validation
+│   ├── Purged k-fold CV
+│   ├── Feature importance & decay
+│   └── Meta-labeling
+├── Models that work:
+│   ├── Linear + regularized models
+│   ├── Tree ensembles (XGBoost, LightGBM)
+│   ├── HMMs for regime detection
+│   ├── Kalman filters
+│   └── Small neural nets (NOT transformers)
+└── Projects:
+    ├── Feature engineering pipeline
+    ├── ML-driven alpha research
+    └── Ensemble model system
+
+6.4 PORTFOLIO OPTIMIZATION
+├── Topics:
+│   ├── Mean-variance optimization
+│   ├── Black-Litterman
+│   ├── Risk parity
+│   └── Multi-objective optimization
+└── Projects:
+    └── Portfolio optimization engine
+
+6.5 EXECUTION & MARKET MAKING
+├── Topics:
+│   ├── Optimal execution (Almgren-Chriss)
+│   ├── Market making strategies
+│   ├── Inventory management
+│   └── Transaction cost analysis
+└── Projects:
+    ├── Execution simulator
+    └── Market making backtest
+
+PHASE 6 CAPSTONE PROJECT:
+"AI-Driven Trading System"
+- Automated feature discovery
+- Model selection & ensembling
+- Walk-forward optimization
+- Risk management
+- Real-time execution simulator
+- Teaches: Production ML for finance
+- Deliverable: Institutional-grade research system
+
+================================================================================
+ONGOING THROUGHOUT ALL PHASES
+================================================================================
+
+META-SKILLS (Practice continuously):
+├── Reading academic papers efficiently
+├── Writing technical blogs/documentation
+├── Explaining complex math visually
+├── Benchmarking rigorously
+├── Profiling before optimizing
+├── Code review skills
+└── Open source contributions
+
+CONTENT CREATION (Pezzza-style projects):
+Every major project should:
+├── Be end-to-end functional
+├── Rebuild fundamentals (not just use libraries)
+├── Combine math + code + visualization
+├── Be explainable (like mini research papers)
+└── Have shareable demos/videos
+
+SUGGESTED RHYTHM:
+├── 70% learning from resources
+├── 20% building projects
+└── 10% writing/teaching what you learned
+
+================================================================================
+PEZZZA-STYLE PROJECT IDEAS (BY CATEGORY)
+================================================================================
+
+SYSTEMS & C++:
+├── Custom Memory Allocator Visualizer
+├── Thread Pool + Work Stealing Scheduler
+── Lock-Free Data Structures Suite
+└── Linux Perf Profiler Clone
+
+GRAPHICS (EARLY - LAPTOP):
+├── Software Rasterizer (full pipeline)
+├── Screen-Space GI Playground
+├── SDF Ray Marcher
+├── Shadow Mapping Techniques Comparison
+└── Deferred Rendering Engine
+
+GRAPHICS (LATE - GPU):
+├── Path Tracer (GPU-accelerated)
+├── ReSTIR GI Implementation
+├── Volumetric Rendering System
+├── Hybrid Raster+RT Renderer
+└── Unreal Engine Custom Pass
+
+ML/DL PROJECTS:
+├── Neural Network From Scratch (with autograd)
+├── Backpropagation Visualizer
+├── CNN Architecture Explorer
+├── Attention Mechanism Deep Dive
+├── Transformer Implementation
+├── Diffusion Model (Tiny)
+└── RL Agent Trainer
+
+QUANT PROJECTS (EARLY):
+├── Monte Carlo Option Pricer
+├── Black-Scholes Visualizer
+├── Volatility Surface Tool
+├── Market Regime Detector (HMM)
+├── Event-Driven Backtesting Engine
+└── Kalman Filter Demo
+
+QUANT PROJECTS (ADVANCED):
+├── Limit Order Book Simulator
+├── Latency Arbitrage Visualization
+├── Portfolio Optimization Dashboard
+├── ML Alpha Research Pipeline
+├── Real-Time Trading Simulator
+└── Market Microstructure Explorer
+
+MEGA CAPSTONE (ULTIMATE):
+"Unified Quant Research Platform"
+- Multi-asset data ingestion
+- Automated feature engineering
+- ML model development suite
+- Event-driven backtesting
+- Risk analytics engine
+- Execution simulation
+- Interactive visualization
+- Full documentation
+→ This is your "hire me immediately" project
+
+================================================================================
+RESOURCES MASTER LIST
+================================================================================
+
+WEBSITES (CORE):
+├── https://www.nand2tetris.org/
+├── https://learncpp.com
+├── https://cppreference.com
+├── https://neetcode.io/
+├── https://cp-algorithms.com/
+├── https://ocw.mit.edu/courses/6-042j/
+├── https://seeing-theory.brown.edu/
+├── https://pages.cs.wisc.edu/~remzi/OSTEP/
+├── https://learnopengl.com/
+├── https://raytracing.github.io/
+├── https://scikit-learn.org/stable/
+├── https://pytorch.org/tutorials/
+├── https://refactoring.guru
+└── https://lucylabs.gatech.edu/ml4t/
+
+YOUTUBE CHANNELS (HIGH-SIGNAL):
+├── 3Blue1Brown (Math/ML intuition)
+├── StatQuest (Statistics/ML)
+├── fast.ai (Practical Deep Learning - Jeremy Howard)
+├── TheCherno (C++/Graphics)
+├── Jason Turner (C++ Weekly)
+├── Andrej Karpathy (Neural Nets)
+├── WilliamFiset (Algorithms)
+├── MIT OpenCourseWare (6.S081, 6.042)
+├── Jacob Sorber (Systems)
+├── ArjanCodes (Software Engineering)
+└── Scratchapixel (Advanced Graphics)
+
+ESSENTIAL BOOKS (IN ORDER OF USE):
+Phase 1:
+├── Effective Modern C++ (Meyers)
+├── Programming Pearls
+└── Mathematics for Computer Science (Lehman)
+
+Phase 2:
+├── Computer Systems: A Programmer's Perspective
+├── Operating Systems: Three Easy Pieces
+├── C++ Concurrency in Action (Williams)
+└── Linear Algebra Done Right (Axler)
+
+Phase 3:
+├── Hands-On Machine Learning with Scikit-Learn, Keras & TensorFlow (Géron)
+├── Introduction to Statistical Learning (Hastie, Tibshirani, Friedman)
+├── Understanding Machine Learning (Shalev-Shwartz)
+├── Pattern Recognition and Machine Learning (Bishop)
+├── The Elements of Statistical Learning (Hastie, Tibshirani, Friedman)
+├── Machine Learning: A Probabilistic Perspective (Murphy)
+├── Designing Data-Intensive Applications
+└── Deep Learning (Goodfellow) [reference]
+
+Phase 4:
+├── Stochastic Calculus for Finance I & II (Shreve)
+├── Paul Wilmott on Quantitative Finance
+├── Options, Futures, Other Derivatives (Hull)
+├── Monte Carlo Methods (Glasserman)
+├── Market Microstructure Theory (O'Hara)
+├── Algorithmic Trading (Chan)
+└── Advances in Financial ML (López de Prado) [CRITICAL]
+
+Phase 5:
+├── Ray Tracing Gems I & II
+├── Programming Massively Parallel Processors
+└── Real-Time Rendering (Akenine-Möller)
+
+Phase 6:
+└── Advanced material is mostly papers at this point
