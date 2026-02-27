@@ -1,0 +1,52 @@
+{
+  "modules-left": ["sway/workspaces", "sway/window", "sway/mode"],
+  "modules-right": ["pulseaudio", "backlight", "network", "battery", "clock"],
+  "clock": {
+    "format": "{:%d %b _ %I : %M}"
+  },
+  "backlight": {
+    "format": "{percent}%  {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "on-scroll-up": "light -A 1",
+    "on-scroll-down": "light -U 1"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% 󰢝",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "pulseaudio": {
+    "format": "{volume}%  {icon}    {format_source}",
+    "format-bluetooth": "{volume}%  {icon}      {format_source}",
+    "format-bluetooth-muted": "󰝟 {icon} {format_source}",
+    "format-muted": "󰝟 {format_source}",
+    "format-source": "{volume}%  ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "󱠰",
+      "headset": "󰋎",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+  "network": {
+    "format": "{ifname}",
+    "format-wifi": "Connected ",
+    "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+    "format-disconnected": "Disconnected 󱛅", //An empty format will hide the module.
+    "max-length": 50
+  },
+  "sway/workspaces": {
+    "disable-scroll": true
+  }
+}
